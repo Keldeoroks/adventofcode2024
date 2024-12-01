@@ -1,0 +1,21 @@
+locList = input()
+locPair = locList.split(" ")
+locPair = [element for element in locPair if element] 
+left = []
+right = []
+for i, n in enumerate(locPair):
+    if i % 2 == 0:
+        left.append(n)
+    elif i % 2 == 1: 
+        right.append(n)
+sortZip = zip(sorted(left),sorted(right))
+zipList = list(sortZip)
+diff = []
+for a, b in zipList:
+    diff.append(abs(int(b)-int(a)))
+print(sum(diff))
+
+prod = []
+for c in left:
+    prod.append(right.count(c)*int(c))
+print(sum(prod))
