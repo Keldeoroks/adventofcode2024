@@ -1,0 +1,40 @@
+from itertools import pairwise
+
+safe = 0
+
+def safetycheck(report):
+    for i, j in pairwise(report):
+        global diffCheck
+        diff = abs(int(j)-int(i))
+        if diff > 3 or diff < 1:
+            diffCheck = 0
+        if int(j) > int(i):
+            ascDesc.append(1)
+        elif int(j) < int(i):
+            ascDesc.append(0)
+
+with open('24-2.txt', 'r') as input:
+    locReport = input.read().splitlines()
+    for n in locReport:
+        reportList = n.split(" ")
+        diffCheck = 1
+        ascDesc = []
+        ascCheck = 0
+        safetycheck(reportList)
+        ascCheck = len(set(ascDesc))
+        if diffCheck == 1 and ascCheck == 1:
+            safe = safe + 1
+        else:
+            for index,k in enumerate(reportList):
+                diffCheck = 1
+                ascDesc = []
+                ascCheck = 0
+                elem = reportList.pop(index)
+                safetycheck(reportList)
+                reportList.insert(index,elem)
+                ascCheck = len(set(ascDesc))
+                if diffCheck == 1 and ascCheck == 1:
+                    safe = safe + 1
+                    break
+
+print(safe)
